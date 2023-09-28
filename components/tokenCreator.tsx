@@ -1,4 +1,5 @@
 
+
 import { useAccount } from "wagmi"
 import { useState } from "react";
 import axios from "axios";
@@ -7,6 +8,7 @@ import { useSigner } from "wagmi";
 import { erc20 } from "../modules/erc20";
 import { useEffect } from "react";
 import Swal from "sweetalert2";
+
 export default function TokenCreator(){
   const accounnt = useAccount();
   const signerWagmi = useSigner();
@@ -76,12 +78,9 @@ export default function TokenCreator(){
     console.log(res.data);
     
   };
+  const { data: signer }:any = useSigner();
 
   async function deploy() {
-    await window.ethereum.enable();
-
-    const provider = new ethers.providers.Web3Provider(window.ethereum);
-    const signer = provider.getSigner();
     const contractFactory = new ethers.ContractFactory(ABI, ByteCode, signer);
     try {
       const deployedContract = await contractFactory.deploy();
