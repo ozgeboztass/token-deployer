@@ -6,8 +6,9 @@ import { ethers } from "ethers";
 import { useSigner } from "wagmi";
 import { erc20 } from "../modules/erc20";
 import { useEffect } from "react";
-
+import Swal from "sweetalert2";
 export default function TokenCreator(){
+  const accounnt = useAccount();
   const signerWagmi = useSigner();
   const [TokenName, setTokenName] = useState("MyToken");
   const [Symbol, setSymbol] = useState("MYT");
@@ -44,7 +45,7 @@ export default function TokenCreator(){
     `
   );
   const [ABI, setABI]:any = useState(null);
-  const [ByteCode, setByteCode] = useState(null);
+  const [ByteCode, setByteCode]:any = useState(null);
 
   useEffect(() => {
     getCode();
@@ -77,7 +78,9 @@ export default function TokenCreator(){
   };
 
   async function deploy() {
-    const provider = new ethers.providers.Web3Provider(signerWagmi);
+    await window.ethereum.enable();
+
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
     const signer = provider.getSigner();
     const contractFactory = new ethers.ContractFactory(ABI, ByteCode, signer);
     try {
@@ -201,23 +204,52 @@ export default function TokenCreator(){
             </div>
             {/* Button Area */}
             <div className="p-2 w-full">
-            {ABI != null ? 
+            {accounnt.address ? (ABI != null ? 
                 <button type="button" onClick={deploy} className="flex mx-auto text-white bg-purple-500 border-0 py-2 px-8 focus:outline-none hover:bg-purple-600 rounded text-lg">
                   Deploy
                 </button>
                 :
                 <button onClick={compile} className="flex mx-auto text-white bg-purple-500 border-0 py-2 px-8 focus:outline-none hover:bg-purple-600 rounded text-lg">
                 Compile
-              </button>
+              </button>):<center>Please Connect Wallet</center>
             }
               
             </div>
-
-            <div className="flex justify-normal mt-10">
-        <button className="inline-flex text-white bg-purple-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-xs text-right">Button
-         <svg xmlns="http://www.w3.org/2000/svg" height="1.25em" viewBox="0 0 448 512"><path d="M384 336H192c-8.8 0-16-7.2-16-16V64c0-8.8 7.2-16 16-16l140.1 0L400 115.9V320c0 8.8-7.2 16-16 16zM192 384H384c35.3 0 64-28.7 64-64V115.9c0-12.7-5.1-24.9-14.1-33.9L366.1 14.1c-9-9-21.2-14.1-33.9-14.1H192c-35.3 0-64 28.7-64 64V320c0 35.3 28.7 64 64 64zM64 128c-35.3 0-64 28.7-64 64V448c0 35.3 28.7 64 64 64H256c35.3 0 64-28.7 64-64V416H272v32c0 8.8-7.2 16-16 16H64c-8.8 0-16-7.2-16-16V192c0-8.8 7.2-16 16-16H96V128H64z"/></svg> </button>
-        <button className="ml-4 inline-flex text-white bg-purple-500 border-0 py-2 px-6 focus:outline-none hover:bg-gray-200 rounded text-xs">Button</button>
-      </div>
+           {ABI !=null ?
+           <>
+            <hr></hr>
+            <br></br>
+            <center>
+            
+        <button className="inline-flex text-white bg-purple-500 border-0 py-2 px-6 focus:outline-none rounded text-xs text-right" onClick={() => {
+        navigator.clipboard.writeText(ByteCode)
+        Swal.fire(
+          'Copied Bytecode!',
+          '',
+          'success'
+        )
+        }}>Bytecode
+        </button>
+        <button className="ml-4 inline-flex text-white bg-purple-500 border-0 py-2 px-6 focus:outline-none rounded text-xs" onClick={() => {
+          navigator.clipboard.writeText(ABI)
+          Swal.fire(
+            'Copied ABI!',
+            '',
+            'success'
+          )
+        }} >ABI</button>
+        <button className="ml-4 inline-flex text-white bg-purple-500 border-0 py-2 px-6 focus:outline-none rounded text-xs" onClick={() => {
+          navigator.clipboard.writeText(contract)
+          Swal.fire(
+            'Copied Contract!',
+            '',
+            'success'
+          )
+          }}>Contract</button>
+      
+              </center>
+           </>:''}
+     
           </div>
         </div>
       </section>
