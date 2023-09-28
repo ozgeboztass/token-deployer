@@ -1,3 +1,5 @@
+import { useAccount } from "wagmi"
+
 export default function TokenCreator(){
 
     return(
