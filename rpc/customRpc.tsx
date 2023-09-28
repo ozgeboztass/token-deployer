@@ -1,5 +1,5 @@
 export const customRPC = {
-    id: 9009,
+    id: 1973,
     name: "RAPID",
     network: "RAPID",
     iconUrl: "/wrapid.png",
@@ -9,8 +9,8 @@ export const customRPC = {
         symbol: "RAPID",
     },
     rpcUrls: {
-        public: { http: ["https://testnet.rapidrpc.com/"] },
-        default: { http: ["https://testnet.rapidrpc.com/"] },
+        public: { http: ["https://rapidrpc.com/"] },
+        default: { http: ["https://rapidrpc.com/"] },
     },
     blockExplorers: {
         etherscan: { name: "rapidscan", url: "https://rapidscan.io/" },
