@@ -14,6 +14,7 @@ export default function TokenCreator(){
   const signerWagmi = useSigner();
   const [TokenName, setTokenName] = useState("MyToken");
   const [Symbol, setSymbol] = useState("MYT");
+  const [Decimal, setDecimal] = useState(18); // [0-18
   const [Premint, setPremint] = useState(1);
   const [mintable, setmintable] = useState(true);
   const [burnable, setburnable] = useState(true);
@@ -66,12 +67,12 @@ export default function TokenCreator(){
   ]);
 
   const getCode = async () => {
-    const code = await erc20(TokenName, Symbol, Premint, Features, License);
+    const code = await erc20(TokenName, Symbol,Decimal, Premint, Features, License);
     setContract(code);
   };
   const compile = async () => {
     const res = await axios.get(
-      "https://compile.luen.online/compile?code=" + btoa(contract)
+      "http://localhost:3008/compile?code=" + btoa(contract)
     );
     setABI(JSON.stringify(res.data.abi) || null);
     setByteCode(res.data.bytecode || null);
@@ -94,6 +95,11 @@ export default function TokenCreator(){
     const newValue = e.target.value.replace(/\s/g, '');
     setTokenName(newValue);
   };
+
+ const handleDecimalChange = (e:any) => {
+    const newValue = e.target.value.replace(/\s/g, '');
+    setDecimal(newValue);
+  }
 
   const handleSymbolChange = (e:any) => {
     const newValue = e.target.value.replace(/\s/g, '');
@@ -193,6 +199,22 @@ export default function TokenCreator(){
                 onChange={handleInputChange}
                 type="license"
                 value={License}
+                id="decimal"
+                name="decimal"
+                className="w-full bg-white rounded border border-gray-300 focus:border-purple-500 focus:ring-2 focus:ring-purple-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
+              />
+              <p className="text-xs text-gray-500 mt-1">
+                Insert the decimal precision of your token.
+              </p>
+            </div>
+            <div className="relative mb-4">
+              <label htmlFor="email" className="leading-7 text-sm text-gray-600">
+               License
+              </label>
+              <input
+                onChange={handleDecimalChange}
+                type="license"
+                value={Decimal}
                 id="decimal"
                 name="decimal"
                 className="w-full bg-white rounded border border-gray-300 focus:border-purple-500 focus:ring-2 focus:ring-purple-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"

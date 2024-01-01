@@ -13,7 +13,7 @@ const { chains, provider, webSocketProvider } = configureChains(
   [customRPC],
   [jsonRpcProvider({
     rpc: (chain) => ({
-      http: `https://testnet.rapidrpc.com/`,
+      http: `https://rapidrpc.com/`,
     }),
   }), publicProvider()],
 )
