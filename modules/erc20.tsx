@@ -1,5 +1,5 @@
 
-export const erc20 = (name:string,symbol:string,premint:number,features:any,license:string) => {
+export const erc20 = (name:string,symbol:string,decimal:number,premint:number,features:any,license:string) => {
     const config ={
         TokenName: name , 
         Symbol : symbol,
@@ -79,6 +79,10 @@ export const erc20 = (name:string,symbol:string,premint:number,features:any,lice
        super._burn(account, amount);
        }
        `:''}    
+
+       function decimals() public pure override returns (uint8) {
+        return ${decimal};
+       }
        ${config.Features.snapshots ? 
         `
        function snapshot() public onlyOwner {
