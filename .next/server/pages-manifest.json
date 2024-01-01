@@ -2,6 +2,6 @@
   "/_app": "pages/_app.js",
   "/_error": "pages/_error.js",
   "/_document": "pages/_document.js",
-  "/": "pages/index.js",
-  "/nftcreator": "pages/nftcreator.js"
+  "/nftcreator": "pages/nftcreator.js",
+  "/": "pages/index.js"
 }
