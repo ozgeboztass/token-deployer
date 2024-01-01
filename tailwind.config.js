@@ -11,6 +11,7 @@ module.exports = {
   theme: {
     colors: {
       purple: "#a855f7",
+      gray:"#1f2937",
     },
     extend: {
       boxShadow: {
