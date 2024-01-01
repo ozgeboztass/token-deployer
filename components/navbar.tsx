@@ -3,9 +3,9 @@ export default function Navbar() {
   return (
     <header className="text-gray-600 body-font">
       <div className="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center">
-        <a className="flex title-font font-medium items-center text-gray-900 mb-4 md:mb-0">
+        <a className="flex title-font font-medium items-center  mb-4 md:mb-0">
           <img className="w-10 h-10" src="logo.webp" />
-          <span className="ml-3 text-xl">Deployer</span>
+          <span className="ml-3 mr-5 text-white text-xl">Deployer</span>
         </a>
         <nav className="md:mr-auto md:ml-4 md:py-1 md:pl-4 md:border-l md:border-gray-400	flex flex-wrap items-center text-base justify-center">
           <a className="mr-5 hover:text-gray-200">Token Creator</a>
@@ -47,7 +47,7 @@ export default function Navbar() {
                       <button
                         onClick={openConnectModal}
                         type="button"
-                        className="inline-flex items-center  border-0 py-1 px-3 focus:outline-none text-white bg-purple-500 hover:bg-purple-600  rounded text-base mt-4 md:mt-0"
+                        className="inline-flex items-center text-[#0B0A14] bg-gradient-to-r from-[#9452F5] to-[#B87FEA] border-0 py-3 px-4 focus:outline-none hover:bg-gray-200 rounded text-base mt-4 md:mt-0"
                       >
                         Connect Wallet
                         <svg
